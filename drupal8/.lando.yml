@@ -1,0 +1,11 @@
+name: project-name
+recipe: drupal8
+config:
+  webroot: web
+  php:  '7.3'
+  xdebug: true
+  conf:
+    php:  php.ini
+services:
+  pma:
+    type: phpmyadmin
