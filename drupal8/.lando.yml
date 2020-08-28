@@ -1,11 +1,14 @@
 name: project-name
 recipe: drupal8
 config:
+  via: nginx
   webroot: web
   php:  '7.3'
   xdebug: true
   conf:
     php:  php.ini
 services:
+  database:
+    portforward: 37001
   pma:
     type: phpmyadmin
