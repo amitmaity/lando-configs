@@ -1,0 +1,14 @@
+name: project-name
+recipe: drupal7
+config:
+  via: nginx
+  webroot: web
+  php:  '5.6'
+  xdebug: true
+  conf:
+    php:  php.ini
+services:
+  database:
+    portforward: 37001
+  pma:
+    type: phpmyadmin
