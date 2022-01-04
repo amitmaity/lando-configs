@@ -20,6 +20,8 @@ services:
         LANDO_HOST_IP: "host.docker.internal"
         XDEBUG_CONFIG: "remote_enable=1 remote_host=host.docker.internal"
         DRUSH_OPTIONS_URI: "http://project-name.lndo.site"
+  pma:
+    type: phpmyadmin
 tooling:
   xdebug-on:
     service: appserver
