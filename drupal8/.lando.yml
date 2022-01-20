@@ -1,14 +1,35 @@
 name: project-name
 recipe: drupal8
 config:
-  via: nginx
   webroot: web
-  php:  '7.3'
+  php: '7.3'
   xdebug: true
-  conf:
-    php:  php.ini
+  config:
+    php: local_config/php.ini
 services:
   database:
     portforward: 37001
+    config:
+      database: local_config/my_custom.cnf
+  appserver:
+    xdebug: true
+    overrides:
+      environment:
+        # support debugging Drush with XDEBUG.
+        PHP_IDE_CONFIG: "serverName=appserver"
+        LANDO_HOST_IP: "host.docker.internal"
+        XDEBUG_CONFIG: "remote_enable=1 remote_host=host.docker.internal"
+        DRUSH_OPTIONS_URI: "http://project-name.lndo.site"
   pma:
     type: phpmyadmin
+tooling:
+  xdebug-on:
+    service: appserver
+    description: Enable xdebug for apache.
+    cmd: docker-php-ext-enable xdebug && /etc/init.d/apache2 reload
+    user: root
+  xdebug-off:
+    service: appserver
+    description: Disable xdebug for apache.
+    cmd: rm /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && /etc/init.d/apache2 reload
+    user: root
