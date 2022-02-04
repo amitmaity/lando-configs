@@ -22,6 +22,15 @@ services:
         DRUSH_OPTIONS_URI: "http://project-name.lndo.site"
   pma:
     type: phpmyadmin
+  mailhog:
+    type: mailhog
+    hogfrom:
+      - appserver
+proxy:
+  mailhog:
+    - mail.project-name.lndo.site
+  pma:
+    - pma.project-name.lndo.site
 tooling:
   xdebug-on:
     service: appserver
