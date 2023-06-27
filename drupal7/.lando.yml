@@ -13,6 +13,11 @@ services:
     xdebug: debug
     config:
       php: local_config/php.ini
+    build_as_root:
+      - apt-get update -y
+      - apt-get install -y libmcrypt-dev
+      - pecl install mcrypt
+      - docker-php-ext-enable mcrypt
     overrides:
       environment:
         # support debugging Drush with XDEBUG.
